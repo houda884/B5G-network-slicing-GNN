@@ -1,0 +1,11 @@
+,valeur
+n_samples,165
+n_flows,37312
+n_links,82914
+flows_missing,0
+links_missing_util,0
+flows_duplicated,0
+delay_nonpositive,0
+loss_out_of_range,0
+intensity_unique,[18000000.0]
+util_gt1,92

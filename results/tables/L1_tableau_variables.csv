@@ -1,0 +1,16 @@
+﻿variable,signification,type,rôle potentiel,justification
+sample_id,identifiant d'une simulation (1 topologie + 1 jeu de slices + 1 trafic),id,regroupement,unité de split train/val/test (évite la fuite : les flux d'une simulation partagent les mêmes liens)
+N / n_links / n_flows,nb de noeuds / liens dirigés / flux actifs,entier,contexte,taille du réseau : sert à créer un changement de distribution (split shift)
+slice_type,eMBB / URLLC / mMTC,catégorielle,DEMANDE (type de service),exigences QoS différentes (débit / latence / massif)
+delta,exigence de délai du slice (SLA),"continu [0,1]",QoS cible / SLA,permet de définir une violation de SLA
+bw (EqLambda),débit offert du flux (bps) : 0.2 / 3.5 / 18 Mbps,continu discret,DEMANDE,charge injectée dans le réseau
+"pkt_size, pkts_lambda",taille moyenne des paquets (bits) et débit de paquets,continu,DEMANDE,détermine temps de service et congestion
+hops,nombre de liens du chemin routé,entier,RESSOURCE (chemin),plus de sauts = plus de files d'attente traversées
+capacity,capacité du lien (bps) : 50/100/350/400 Mbps,continu,RESSOURCE,bande passante disponible
+"is_wfq, queue_size",politique d'ordonnancement du noeud émetteur et taille des files,catégorielle / entier,RESSOURCE (config),partage de capacité entre slices (WFQ) ou FIFO
+"n_flows_link, load, rho",nb de flux / charge offerte / charge offerte ÷ capacité (d'après le ROUTAGE),continu,DEMANDE vs RESSOURCE,"indicateur direct de congestion, calculé à partir des entrées seulement"
+planned_reservation / planned_traffic,"réservation et trafic PLANIFIÉS par slice sur le lien (chemins de slices, pas ceux simulés)",continu,"RESSOURCE allouée (partiellement incohérente avec le routage simulé, corr. 0.4-0.7)","feature de configuration, à utiliser avec prudence"
+avg_delay (cible),"délai moyen du flux (s), de 4e-6 à 1825",continu très asymétrique,QoS (SORTIE),cible : on prédit ln(délai)
+loss_ratio,pertes / paquets générés,"continu [0,1]",QoS (SORTIE),"utilisée pour les événements et l'analyse, pas comme feature"
+"jitter, p90","gigue, percentile 90 du délai",continu,QoS (SORTIE),métriques alternatives
+"util_sim, loss_sim",utilisation / pertes simulées des liens,continu,QoS réseau (SORTIE),analyse et visualisation d'événements ; jamais en entrée (fuite)

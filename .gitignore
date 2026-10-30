@@ -1,0 +1,12 @@
+﻿# environnement et caches
+venv/
+__pycache__/
+*.pyc
+
+# données : trop volumineuses, à télécharger depuis Zenodo (voir README)
+data/raw/
+data/processed/
+
+# fichiers temporaires
+.DS_Store
+Thumbs.db
