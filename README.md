@@ -15,14 +15,31 @@ python -c "import torch, torch_geometric, networkx; print(torch.__version__, tor
 ```
 
 ## 2. Données
-Le zip fourni contient un second zip (`slicing-sample.zip`). Dézipper **les deux** dans `data\raw\` :
-```
-data\raw\...\2.2.1-10kprocessed\
-        graphs\  routings\  slices\  results_slicing_WFQ_1000_routing_*.tar.gz  (33 fichiers)
-```
-(la profondeur des sous-dossiers n'a pas d'importance : `datanetAPI` cherche le dossier qui contient
-`graphs/`, `routings/` et `slices/`). **Ne pas décompresser les .tar.gz.**
-Le fichier `src\datanetAPI.py` est votre API fournie (non modifiée).
+
+Le dataset vient de Zenodo et **n'est pas inclus dans ce dépôt** (environ 200 Mo, au-delà de la limite de 100 Mo par fichier de GitHub).
+
+- **Page du dataset :** https://zenodo.org/records/10610616 (DOI 10.5281/zenodo.10610616, licence CC BY 4.0)
+- **Référence à citer :** Farreras, M., Paillissé, J., Fàbrega, L., Vilà, P., « Generation of a network slicing dataset: The foundations for AI-based B5G resource management », *Data in Brief* 55 (2024) 110738, doi:10.1016/j.dib.2024.110738
+
+Les résultats du rapport ont été obtenus sur l'échantillon `slicing-sample` : 165 simulations, 33 archives `.tar.gz`, 37 312 flux et 82 914 liens.
+
+### Comment l'utiliser
+
+1. Télécharger le dataset depuis la page Zenodo ci-dessus.
+2. Le dézipper dans `data\raw\` (si l'archive en contient une autre, par exemple `slicing-sample.zip`, la dézipper aussi). **Ne pas décompresser les `.tar.gz`.**
+3. Vérifier que `data\raw\...\2.2.1-10kprocessed\` contient `graphs\`, `routings\`, `slices\` et les fichiers `results_slicing_WFQ_1000_routing_*.tar.gz`. La profondeur des sous-dossiers n'a pas d'importance : `datanetAPI` cherche le dossier qui contient `graphs\`, `routings\` et `slices\`.
+4. Extraire les données (2 à 4 minutes) :
+   ```bat
+   cd src
+   python 01_extract.py
+   ```
+   Cela crée `data\processed\` : `samples.csv`, `flows.csv`, `links.csv`, `resources.csv`, `graphs.pkl`.
+5. Lancer la suite du pipeline :
+   ```bat
+   python run_all.py
+   ```
+
+Le fichier `src\datanetAPI.py` est une version adaptée par l'équipe pour lire le dataset `Slicing_sample` (voir son en-tête).
 
 ## 3. Exécution
 ```bat
