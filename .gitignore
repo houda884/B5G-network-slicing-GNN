@@ -4,8 +4,10 @@ __pycache__/
 *.pyc
 
 # données : trop volumineuses, à télécharger depuis Zenodo (voir README)
-data/raw/
-data/processed/
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
 
 # fichiers temporaires
 .DS_Store
